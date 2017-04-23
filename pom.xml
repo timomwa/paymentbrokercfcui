@@ -110,9 +110,23 @@
 		<dependency>
 			<groupId>net.bootsfaces</groupId>
 			<artifactId>bootsfaces</artifactId>
-			<version>1.0.2</version>
+			<version>0.9.1</version>
 		</dependency>
 
+
+		<!-- https://mvnrepository.com/artifact/org.omnifaces/omnifaces >
+		<dependency>
+			<groupId>org.omnifaces</groupId>
+			<artifactId>omnifaces</artifactId>
+			<version>2.5.1</version>
+		</dependency-->
+
+		<!-- https://mvnrepository.com/artifact/org.apache.xmlgraphics/fop -->
+		<dependency>
+			<groupId>org.apache.xmlgraphics</groupId>
+			<artifactId>fop</artifactId>
+			<version>2.1</version>
+		</dependency>
 
 
 
@@ -131,6 +145,12 @@
 		</dependency>
 
 
+		<!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1.0</version>
+		</dependency>
 
 	</dependencies>
 
