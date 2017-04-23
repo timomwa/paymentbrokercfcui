@@ -13,6 +13,7 @@
 			<groupId>ug.or.nda</groupId>
 			<artifactId>broker-ejb</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
+			<scope>compile</scope>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-annotations -->
