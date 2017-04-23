@@ -9,14 +9,14 @@
 	<description>Web Interface for Payment broker</description>
 	<dependencies>
 
-		<!--dependency>
+		<dependency>
 			<groupId>ug.or.nda</groupId>
 			<artifactId>broker-ejb</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 			<scope>provided</scope>
-		</dependency-->
+		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-annotations >
+		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-annotations -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-annotations</artifactId>
@@ -54,7 +54,7 @@
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 			<version>1.2.17</version>
-			<!-- scope>provided</scope >
+			<!-- scope>provided</scope -->
 		</dependency>
 
 		<dependency>
@@ -103,7 +103,7 @@
 					<groupId>com.sun.xml.bind</groupId>
 				</exclusion>
 			</exclusions>
-		</dependency-->
+		</dependency>
 
 	</dependencies>
 
