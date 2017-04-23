@@ -9,12 +9,12 @@
 	<description>Web Interface for Payment broker</description>
 	<dependencies>
 
-		<dependency>
+		<!--dependency>
 			<groupId>ug.or.nda</groupId>
 			<artifactId>broker-ejb</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 			<scope>provided</scope>
-		</dependency>
+		</dependency-->
 
 		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-annotations -->
 		<dependency>
