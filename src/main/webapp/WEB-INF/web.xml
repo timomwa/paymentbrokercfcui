@@ -20,7 +20,7 @@
 		<param-value>true</param-value>
 	</context-param>
 	<session-config>
-		<tracking-mode>COOKIE</tracking-mode>
+		<!--tracking-mode>COOKIE</tracking-mode-->
 	</session-config>
 	<listener>
 		<listener-class>org.apache.shiro.web.env.EnvironmentLoaderListener</listener-class>
