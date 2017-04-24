@@ -2,49 +2,73 @@
 <web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
-	
+	<display-name>Payment Broker Management UI</display-name>
+	<!-- Plugging the "Blue Sky" skin into the project -->
+
 	<context-param>
-		<param-name>com.sun.faces.enableRestoreView11Compatibility</param-name>
-		<param-value>true</param-value>
+		<param-name>org.apache.myfaces.EXPRESSION_FACTORY</param-name>
+		<param-value>org.jboss.el.ExpressionFactoryImpl</param-value>
 	</context-param>
+
 	<context-param>
-		<param-name>primefaces.THEME</param-name>
-		<param-value>bootstrap</param-value>
+		<param-name>org.richfaces.SKIN</param-name>
+		<param-value>blueSky</param-value>
 	</context-param>
+
+	<!-- Making the RichFaces skin spread to standard HTML controls -->
 	<context-param>
-		<param-name>BootsFaces_THEME</param-name>
-		<param-value>spacelab</param-value>
+		<param-name>org.richfaces.CONTROL_SKINNING</param-name>
+		<param-value>enable</param-value>
 	</context-param>
-	<context-param>
-		<param-name>BootsFaces_USETHEME</param-name>
-		<param-value>true</param-value>
-	</context-param>
-	<session-config>
-		<!--tracking-mode>COOKIE</tracking-mode-->
-	</session-config>
+
 	<listener>
-		<listener-class>org.apache.shiro.web.env.EnvironmentLoaderListener</listener-class>
+		<listener-class>com.sun.faces.config.ConfigureListener</listener-class>
 	</listener>
+
+
+
+
+
+	<!-- Defining and mapping the RichFaces filter -->
 	<filter>
-		<filter-name>ShiroFilter</filter-name>
-		<filter-class>org.apache.shiro.web.servlet.ShiroFilter</filter-class>
+		<display-name>RichFaces Filter</display-name>
+		<filter-name>richfaces</filter-name>
+		<filter-class>org.ajax4jsf.Filter</filter-class>
 	</filter>
-	<security-constraint>
-		<display-name>Restrict access to Facelets source code.</display-name>
-		<web-resource-collection>
-			<web-resource-name>Facelets</web-resource-name>
-			<url-pattern>*.xhtml</url-pattern>
-		</web-resource-collection>
-		<auth-constraint />
-	</security-constraint>
+
+
 	<filter-mapping>
-		<filter-name>ShiroFilter</filter-name>
-		<url-pattern>/*</url-pattern>
+		<filter-name>richfaces</filter-name>
+		<servlet-name>Faces Servlet</servlet-name>
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>
 		<dispatcher>INCLUDE</dispatcher>
-		<dispatcher>ERROR</dispatcher>
 	</filter-mapping>
+
+
+
+	<!-- Faces Servlet -->
+	<servlet>
+		<servlet-name>Faces Servlet</servlet-name>
+		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<!-- Faces Servlet Mapping -->
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>*.jsf</url-pattern>
+	</servlet-mapping>
+
+	<login-config>
+		<auth-method>BASIC</auth-method>
+	</login-config>
+
+	<error-page>
+		<exception-type>java.lang.SecurityException</exception-type>
+		<location>/login.jsf</location>
+	</error-page>
+
 	<error-page>
 		<exception-type>javax.faces.application.ViewExpiredException</exception-type>
 		<location>/WEB-INF/errorpages/expired.xhtml</location>
@@ -52,7 +76,7 @@
 	<welcome-file-list>
 		<welcome-file>login.jsf</welcome-file>
 	</welcome-file-list>
-	
+
 	<session-config>
 		<session-timeout>30</session-timeout>
 	</session-config>

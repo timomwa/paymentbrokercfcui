@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" 
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="msapplication-TileColor" content="#ffffff" />
+	<meta name="msapplication-TileImage"
+		content="resources/images/ms-icon-144x144.png" />
+	<meta name="theme-color" content="#ffffff" />
+
+	<title></title>
+	<f:facet name="last">
+		<h:outputStylesheet name="css/customstyle.css" position="last" />
+	</f:facet>
+	
+</h:head>
+<h:body id="templatebody">
+
+	<div id="templatepage">
+
+		<b:container >
+
+			<b:row>
+				<ui:insert name="topmenu" />
+			</b:row>
+
+			<b:row>
+				<b:panel class="content"  id="templatecontent">
+					<ui:insert name="content" />
+				</b:panel>
+			</b:row>
+
+			<b:row>
+				<ui:insert name="footer" />
+			</b:row>
+
+		</b:container>
+		
+	</div>
+</h:body>
+</html>

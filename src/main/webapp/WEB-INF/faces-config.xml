@@ -1,9 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<faces-config xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
-	version="2.2">
-	<application>
-		<resource-handler>org.omnifaces.resourcehandler.CombinedResourceHandler</resource-handler>
-	</application>
+<faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd">
+	<managed-bean>
+		<description>UsernName Bean</description>
+		<managed-bean-name>user</managed-bean-name>
+		<managed-bean-class>ug.or.nda.beans.User</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+		<managed-property>
+			<property-name>name</property-name>
+			<property-class>java.lang.String</property-class>
+			<value />
+		</managed-property>
+	</managed-bean>
+	
+	
+	<managed-bean>
+		<description>PaymentNotificationBean Bean</description>
+		<managed-bean-name>paymentnotificationbean</managed-bean-name>
+		<managed-bean-class>ug.or.nda.beans.PaymentNotificationBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	
+	
 </faces-config>
