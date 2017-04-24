@@ -17,13 +17,13 @@ public class PaymentNotificationBean {
 	public String getNotificationEJB(){
 		Context ctx = null;
 		try {
-			Properties prop = new Properties();
-			prop.put(Context.URL_PKG_PREFIXES, "org.jboss.ejb.client.naming");
-			prop.put(Context.PROVIDER_URL, "http-remoting://127.0.0.1:8080");
-			//prop.put(Context.SECURITY_PRINCIPAL, "username");
-			//prop.put(Context.SECURITY_CREDENTIALS, "password");
-			prop.put("jboss.naming.client.ejb.context", true);
-			ctx = new InitialContext();
+			Properties env = new Properties();
+			env.put(Context.INITIAL_CONTEXT_FACTORY,"org.jboss.naming.NamingContextFactory");
+			env.put(Context.URL_PKG_PREFIXES,"org.jboss.naming:org.jnp.interfaces");
+			env.put(Context.PROVIDER_URL, "jnp://127.0.0.1:1099");
+			 
+			
+			ctx = new InitialContext(env);
 			paymentQueryEJB = (PaymentQueryServiceEJBI) ctx.lookup( "paymentbroker/PaymentQueryServiceEJBImpl/remote-ug.or.nda.ejb.PaymentQueryServiceEJBI");
 			QueryDTO queryDTO = new QueryDTO();
 			queryDTO.setStart(0);
