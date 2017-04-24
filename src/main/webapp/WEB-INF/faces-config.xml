@@ -13,14 +13,34 @@
 			<value />
 		</managed-property>
 	</managed-bean>
-	
-	
+
+
 	<managed-bean>
 		<description>PaymentNotificationBean Bean</description>
 		<managed-bean-name>paymentnotificationbean</managed-bean-name>
 		<managed-bean-class>ug.or.nda.beans.PaymentNotificationBean</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
+		<managed-property>
+			<property-name>payments</property-name>
+			<property-class>java.util.List</property-class>
+			<value />
+		</managed-property>
 	</managed-bean>
 	
 	
+	<managed-bean>
+		<description>Data Scroller Bean</description>
+		<managed-bean-name>dataScrollerBean</managed-bean-name>
+		<managed-bean-class>ug.or.nda.beans.DataScrollerBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+		<managed-property>
+			<property-name>payments</property-name>
+			<property-class>java.util.List</property-class>
+			<value />
+		</managed-property>
+	</managed-bean>
+	
+	
+
+
 </faces-config>
