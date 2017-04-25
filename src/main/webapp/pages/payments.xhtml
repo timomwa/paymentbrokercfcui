@@ -87,6 +87,7 @@
 				id="traxTable" value="#{paymentNotificationBean.payments}" var="payment">
 				<b:dataTableColumn value="#{payment.transactionDate}" label="Trx Date"/>
 				<b:dataTableColumn value="#{payment.invoiceNo}" label="Invoice #"/>
+				<b:dataTableColumn value="#{payment.currencyCode}"  label="Currency" />
 				<b:dataTableColumn value="#{payment.amount}" dataType="numeric-comma"  label="Amount." />
 				<b:dataTableColumn value="#{payment.paymentMode}" label="Payment Mode"/>
 				<b:dataTableColumn value="#{payment.transactionRef}" label="Trx. Ref"/>
