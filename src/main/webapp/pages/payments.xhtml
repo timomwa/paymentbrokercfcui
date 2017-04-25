@@ -26,10 +26,10 @@
 				</b:row>
 				<b:row>
 					<b:column span="2">
-						<h:outputText value="Msisdn / Name / Tx Id:" for="msisdn" />
+						<h:outputText value="Invoice #/Trx. Ref:" for="query" />
 					</b:column>
 					<b:column span="5">
-						<b:inputText placeholder="Msisdn, Tx Id or Name" id="msisdn"
+						<b:inputText placeholder="Msisdn, Tx Id or Name" id="query"
 							value="#{paymentNotificationBean.queryDTO.query}" ajax="true"
 							autocomplete="false" update="@(.messagex)">
 							<f:facet name="prepend">
@@ -85,13 +85,12 @@
 		<b:panel>
 			<b:dataTable scroll-x="false" page-length="50" fixedHeader="true" responsive="true" ajax="true" style="display nowrap" style-class="display nowrap"
 				id="traxTable" value="#{paymentNotificationBean.payments}" var="payment">
-				<b:dataTableColumn value="#{payment.transactionDate}" label="Trx ID"/>
-				<b:dataTableColumn value="#{trx.businessShortcode}" label="Paybill #"/>
-				<b:dataTableColumn value="#{payment.invoiceNo}" label="MSISDN"/>
-				<b:dataTableColumn value="##{payment.currencyCode} #{payment.amount}" dataType="numeric-comma"  label="Paybill Acc." />
-				<b:dataTableColumn value="#{payment.paymentMode}" label="Time"/>
-				<b:dataTableColumn value="#{payment.transactionRef}" label="Amount"/>
-				<b:dataTableColumn value="#{payment.status}" label="Last Name" />			
+				<b:dataTableColumn value="#{payment.transactionDate}" label="Trx Date"/>
+				<b:dataTableColumn value="#{payment.invoiceNo}" label="Invoice #"/>
+				<b:dataTableColumn value="#{payment.amount}" dataType="numeric-comma"  label="Amount." />
+				<b:dataTableColumn value="#{payment.paymentMode}" label="Payment Mode"/>
+				<b:dataTableColumn value="#{payment.transactionRef}" label="Trx. Ref"/>
+				<b:dataTableColumn value="#{payment.status}" label="Status" />			
 			</b:dataTable>
 		</b:panel>
 

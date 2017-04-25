@@ -52,6 +52,7 @@ public class QueryDTO implements Serializable {
 	public void setDateTo(Date dateTo) {
 		this.dateTo = dateTo;
 	}
+	
 	@Override
 	public String toString() {
 		return "\n\nQueryDTO [\n\t\trequestHeader=" + requestHeader + ", \n\t\tquery=" + query + ", \n\t\tstart="
