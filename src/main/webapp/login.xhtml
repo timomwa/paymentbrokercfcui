@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:b="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:bnu="http://bootsfaces.net/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="msapplication-TileColor" content="#ffffff"/>
+	<meta name="msapplication-TileImage" content="resources/images/ms-icon-144x144.png"/>
+	<meta name="theme-color" content="#ffffff"/>
+
+
+	<title>Payment Broker UI</title>
+	<f:facet name="last">
+		<h:outputStylesheet
+			name="css/customstyle.css"
+			position="last" />
+	</f:facet>
+	
+	<link rel="shortcut icon" type="image/x-icon" href="resources/images/favicon.ico"/>
+</h:head>
+<h:body>
+
+	<bnu:container>
+
+		<bnu:row>
+		</bnu:row>
+
+		<bnu:row>
+			<bnu:panel class="content" id="techno_content">
+				<ui:include src="pages/#{pageBean.loginPage}.xhtml" />
+			</bnu:panel>
+		</bnu:row>
+
+		<bnu:row>
+		</bnu:row>
+
+	</bnu:container>
+	
+</h:body>
+</html>

@@ -1,0 +1,53 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:bnu="http://bootsfaces.net/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<bnu:navBar brand-img-style="height: 20px"
+		brand-img="#{pageBean.approot}/resources/images/statistics.png"
+		brandHref="/paymentbrokerui/index.jsf" inverse="false" position="top"
+		sticky="true" style-class="navbar navbar-default navbar-fixed-top">
+
+		<bnu:container fluid="true" style-class="technoblue">
+			<h:form>
+				<bnu:navbarLinks>
+
+					<bnu:dropMenu value="Admin Panel">
+						<bnu:navLink value="Email Settings"
+							href="#{pageBean.approot}/configuration/emailSettings.jsf"></bnu:navLink>
+					</bnu:dropMenu>
+
+
+					<bnu:dropMenu value="Payments">
+						<bnu:navLink value="Query payments"
+							onclick="ajax:pageBean.payments()"
+							href="#{pageBean.approot}/pages/payments.jsf"></bnu:navLink>
+					</bnu:dropMenu>
+
+				</bnu:navbarLinks>
+
+
+				<bnu:navbarLinks pull="right">
+					<bnu:navLink value="    " href="#"></bnu:navLink>
+				</bnu:navbarLinks>
+
+			</h:form>
+
+			<bnu:navbarLinks pull="right">
+				<bnu:dropMenu value="My Account">
+					<bnu:navLink></bnu:navLink>
+					<bnu:navLink value="Change Password"
+						onclick="ajax:pageBean.changePassword()"
+						href="#{pageBean.approot}/users/changepassword.jsf"></bnu:navLink>
+					<bnu:navLink></bnu:navLink>
+					<bnu:navLink value="Logout" href="#{pageBean.approot}/logout"></bnu:navLink>
+				</bnu:dropMenu>
+			</bnu:navbarLinks>
+
+		</bnu:container>
+
+
+	</bnu:navBar>
+
+</ui:composition>

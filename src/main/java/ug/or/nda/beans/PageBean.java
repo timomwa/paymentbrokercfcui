@@ -14,7 +14,7 @@ public class PageBean implements Serializable {
 	 */
 	private static final long serialVersionUID = 5302837590191L;
 	
-	private String page = "home";
+	private String page = "payments";
 	private String loginPage = "login";
 	public static final String APPROOT = "/paymentbrokerui";
 	private String approot = APPROOT;
@@ -25,6 +25,10 @@ public class PageBean implements Serializable {
 
 	public void setLoginPage(String loginPage) {
 		this.loginPage = loginPage;
+	}
+	
+	public void payments(){
+		page = "payments";
 	}
 
 	public void home() {

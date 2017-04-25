@@ -1,0 +1,25 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:bnu="http://bootsfaces.net/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<bnu:navBar brandHref="/" inverse="false" position="bottom"
+		sticky="false" style-class="navbar navbar-default navbar-fixed-bottom">
+
+		<bnu:container>
+			<bnu:row>
+
+				<bnu:column col-xs="15" col-sm="4" col-md="3" col-lg="4">
+					<h:outputText value="©" />
+					<h:outputText value=" #{now}">
+						<f:convertDateTime pattern="yyyy" type="date" />
+					</h:outputText>
+				</bnu:column>
+
+			</bnu:row>
+
+		</bnu:container>
+
+	</bnu:navBar>
+</ui:composition>
