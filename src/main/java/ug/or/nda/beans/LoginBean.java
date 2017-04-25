@@ -63,7 +63,6 @@ public class LoginBean implements Serializable {
 			logger.info("\n\n USER IS NOT LOGGED IN! \n\n ");
 
 			String receivedhash = LocalEncryptor.decrypt( getEncryptionPort().hashPassword(loginPassword, loginUsername) );
-			logger.info("\n\n ["+receivedhash+"] \n\n ");
 			UsernamePasswordToken token = new UsernamePasswordToken(loginUsername, receivedhash);
 			boolean loginsuccess = false;
 			try {
@@ -118,7 +117,7 @@ public class LoginBean implements Serializable {
 	private EncryptionService getEncryptionPort() {
 		if(encryptionService==null){
 			try {
-				URL url = new URL("http://localhost:8080/broker/encryption/v1.0?wsdl");
+				URL url = new URL("http://"+PaymentNotificationBean.WS_HOST+"/broker/encryption/v1.0?wsdl");
 				QName qname = new QName("http://services.nda.or.ug", "EncryptionServiceService");
 				encryptionService = new EncryptionServiceService(url,qname);
 			} catch (MalformedURLException e) {
@@ -134,7 +133,7 @@ public class LoginBean implements Serializable {
 	private UserService getUserService() {
 		if(service1==null){
 			try {
-				URL url = new URL("http://localhost:8080/broker/user/v1.0?wsdl");
+				URL url = new URL("http://"+PaymentNotificationBean.WS_HOST+"/broker/user/v1.0?wsdl");
 				QName qname = new QName("http://services.nda.or.ug", "UserServiceService");
 				service1 = new UserServiceService(url,qname);
 			} catch (MalformedURLException e) {
