@@ -63,7 +63,7 @@ public class LoginBean implements Serializable {
 			logger.info("\n\n USER IS NOT LOGGED IN! \n\n ");
 
 			String receivedhash = LocalEncryptor.decrypt( getEncryptionPort().hashPassword(loginPassword, loginUsername) );
-			logger.info("\n\n receivedhash -> " + receivedhash + " \n\n ");
+			//logger.info("\n\n receivedhash -> " + receivedhash + " \n\n ");
 			UsernamePasswordToken token = new UsernamePasswordToken(loginUsername, receivedhash);
 			boolean loginsuccess = false;
 			try {
@@ -93,7 +93,7 @@ public class LoginBean implements Serializable {
 				FacesContext.getCurrentInstance().addMessage("loginForm:login", msg);
 
 				try {
-					redirect("index.jsf");
+					redirect("broker.jsf");
 				} catch (Exception e) {
 					logger.error(e.getMessage(), e);
 				}
@@ -107,7 +107,7 @@ public class LoginBean implements Serializable {
 		} else {
 			logger.info("\n\n USER IS CURRENTLY LOGGED IN! \n\n ");
 			try {
-				redirect("index.jsf");
+				redirect("broker.jsf");
 			} catch (IOException e) {
 				logger.error(e.getMessage(), e);
 			}

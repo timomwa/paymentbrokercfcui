@@ -1,25 +1,43 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui" xmlns:bnu="http://bootsfaces.net/ui"
+	xmlns:p="http://primefaces.org/ui" 
+	xmlns:b="http://bootsfaces.net/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
-	<bnu:navBar brandHref="/" inverse="false" position="bottom"
+	<b:navBar brandHref="/" inverse="false" position="bottom"
 		sticky="false" style-class="navbar navbar-default navbar-fixed-bottom">
 
-		<bnu:container>
-			<bnu:row>
+		<b:container>
+			<b:row>
 
-				<bnu:column col-xs="15" col-sm="4" col-md="3" col-lg="4">
+				<b:column col-xs="15" col-sm="4" col-md="3" col-lg="4">
 					<h:outputText value="©" />
 					<h:outputText value=" #{now}">
 						<f:convertDateTime pattern="yyyy" type="date" />
 					</h:outputText>
-				</bnu:column>
+				</b:column>
 
-			</bnu:row>
+				<b:column col-xs="15" col-sm="4" col-md="3" col-lg="4">
 
-		</bnu:container>
+					<b:form horizontal="true">
+						<b:formGroup>
+							<b:selectOneMenu value="#{pageBean.currentTheme}" col-xs="15" col-sm="4" col-md="3" col-lg="4" colMd="2"  label="Theme" labelColMd="2"
+							onchange="console.log('before onChange');ajax:ajaxBean.onChange();javascript:console.log('afterOnChange')"  >
+								<f:selectItem itemLabel="(Please select)" itemValue="" />
+								<f:selectItem itemLabel="lumen" itemValue="lumen" />
+								<f:selectItem itemLabel="paper" itemValue="paper" />
+								<f:selectItem itemLabel="spacelab" itemValue="spacelab"/>
+								<f:selectItem itemLabel="simplex" itemValue="simplex"/>
+							</b:selectOneMenu>
+						</b:formGroup>
+					</b:form>
 
-	</bnu:navBar>
+				</b:column>
+
+			</b:row>
+
+		</b:container>
+
+	</b:navBar>
 </ui:composition>

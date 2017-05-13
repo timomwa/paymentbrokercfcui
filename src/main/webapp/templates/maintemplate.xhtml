@@ -4,10 +4,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui" 
-	xmlns:b="http://bootsfaces.net/ui"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
-	
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:shiro="http://shiro.apache.org/tags">
+
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta name="msapplication-TileColor" content="#ffffff" />
@@ -19,22 +19,25 @@
 	<f:facet name="last">
 		<h:outputStylesheet name="css/customstyle.css" position="last" />
 	</f:facet>
-	
+
 </h:head>
-<h:body id="templatebody">
+<h:body id="templatebody" class="templatebodycls">
 
 	<div id="templatepage">
 
-		<b:container >
+		<b:container>
 
-			<b:row>
-				<ui:insert name="topmenu" />
-			</b:row>
+				<b:row>
+					<ui:insert name="topmenu" />
+				</b:row>
 
-			<b:row>
-				<b:panel class="content"  id="templatecontent">
+			<b:row class="contPage">
+				<b:panel id="templatecontent">
 					<ui:insert name="content" />
 				</b:panel>
+				<script type="text/javascript">
+					$('.dropdown-toggle').dropdown();
+				</script>
 			</b:row>
 
 			<b:row>
@@ -42,7 +45,7 @@
 			</b:row>
 
 		</b:container>
-		
+
 	</div>
 </h:body>
 </html>

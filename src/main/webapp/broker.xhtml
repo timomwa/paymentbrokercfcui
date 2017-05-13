@@ -4,21 +4,32 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:shiro="http://shiro.apache.org/tags">
 <h:body>
 	<ui:composition template="./templates/maintemplate.xhtml">
 
+
 		<ui:define name="topmenu">
-			<ui:include src="./menu/mainmenu.xhtml" />
+			<shiro:authenticated>
+				<ui:include src="./menu/mainmenu.xhtml" />
+			</shiro:authenticated>
 		</ui:define>
 
 		<ui:define name="content">
-			<ui:include src="./pages/payments.xhtml" />
+			<shiro:authenticated>
+				<ui:include src="./pages/#{pageBean.page}.xhtml" />
+			</shiro:authenticated>
+			<shiro:notAuthenticated>
+				<ui:include src="./pages/login.xhtml" />
+			</shiro:notAuthenticated>
 		</ui:define>
 
 
 		<ui:define name="footer">
-			<ui:include src="./footer/footer.xhtml" />
+			<shiro:authenticated>
+				<ui:include src="./footer/footer.xhtml" />
+			</shiro:authenticated>
 		</ui:define>
 
 	</ui:composition>

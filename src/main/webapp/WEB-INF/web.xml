@@ -14,8 +14,13 @@
 		<param-value>bootstrap</param-value>
 	</context-param>
 	<context-param>
-		<param-name>BootsFaces_THEME</param-name>
-		<param-value>spacelab</param-value>
+		<param-name>BootsFaces_USETHEME</param-name>
+		<param-value>#{pageBean.currentTheme}</param-value>
+	</context-param>
+	<!-- Activates the waitcursor and the double-click protection -->
+	<context-param>
+		<param-name>net.bootsfaces.blockUI</param-name>
+		<param-value>true</param-value>
 	</context-param>
 	<context-param>
 		<param-name>BootsFaces_USETHEME</param-name>
@@ -52,6 +57,6 @@
 		<location>/WEB-INF/errorpages/expired.xhtml</location>
 	</error-page>
 	<welcome-file-list>
-		<welcome-file>login.jsf</welcome-file>
+		<welcome-file>broker.jsf</welcome-file>
 	</welcome-file-list>
 </web-app>

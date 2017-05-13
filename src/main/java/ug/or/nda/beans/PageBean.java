@@ -5,9 +5,13 @@ import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import org.apache.log4j.Logger;
+
 @ManagedBean
 @SessionScoped
 public class PageBean implements Serializable {
+	
+	private Logger logger = Logger.getLogger(getClass());
 
 	/**
 	 * 
@@ -15,9 +19,10 @@ public class PageBean implements Serializable {
 	private static final long serialVersionUID = 5302837590191L;
 	
 	private String page = "payments";
-	private String loginPage = "login";
+	private String loginPage = "broker";
 	public static final String APPROOT = "/paymentbrokerui";
 	private String approot = APPROOT;
+	private String currentTheme = "";
 	
 	public String getLoginPage() {
 		return loginPage;
@@ -110,9 +115,7 @@ public class PageBean implements Serializable {
 	
 	//TODO store this in a session
 	public String getPage() {
-		final String temp_page = page;
-		page = "home";
-		return temp_page;
+		return page==null || page.isEmpty() ? "broker" : page;
 	}
 
 	public void setPage(String page) {
@@ -126,5 +129,16 @@ public class PageBean implements Serializable {
 	public void setApproot(String approot) {
 		this.approot = approot;
 	}
+
+	public String getCurrentTheme() {
+		return currentTheme!=null ? currentTheme : "paper";
+	}
+
+	public void setCurrentTheme(String currentTheme) {
+		logger.info("\n\n\t\t  ----> currentTheme --> "+currentTheme+"\n\n" );
+		this.currentTheme = currentTheme;
+	}
+	
+	
 
 }
