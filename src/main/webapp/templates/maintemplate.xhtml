@@ -36,7 +36,9 @@
 					<ui:insert name="content" />
 				</b:panel>
 				<script type="text/javascript">
-					$('.dropdown-toggle').dropdown();
+					var menu = $('.dropdown-toggle');
+					if(menu)
+						menu.dropdown();
 				</script>
 			</b:row>
 
