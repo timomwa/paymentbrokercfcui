@@ -27,7 +27,7 @@ public class PaymentNotificationBean implements Serializable {
 	private Logger logger = Logger.getLogger(getClass());
 	
 	
-	public final static String WS_HOST = "localhost:8080";//"212.22.169.19";
+	public final static String WS_HOST = "212.22.169.19";//"localhost:8080";
 	
 	private static final long serialVersionUID = 4627110854172372523L;
 
