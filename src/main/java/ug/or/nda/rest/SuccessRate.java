@@ -23,13 +23,12 @@ public class SuccessRate {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public String getNumbers(
-			@QueryParam("startDate") String startDate,
-			@QueryParam("endDate") String endDate
+			@QueryParam("endDate") String endDate,
+			@QueryParam("startDate") String startDate
 			) {
 		
 		String query = context.getBaseUri().getQuery();
 		logger.info("\n\t--> query: "+query);
-		logger.info("\t--> startDate: "+startDate);
 		logger.info("\t--> startDate: "+startDate);
 		logger.info("\t--> endDate: "+endDate);
 		
