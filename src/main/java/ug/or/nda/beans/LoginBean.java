@@ -60,10 +60,10 @@ public class LoginBean implements Serializable {
 
 		if (!currentUser.isAuthenticated()) {
 
-			logger.info("\n\n USER IS NOT LOGGED IN! \n\n ");
+			logger.info("\n\n USER IS NOT LOGGED IN! ["+loginUsername+"] \n\n ");
 
 			String receivedhash = LocalEncryptor.decrypt( getEncryptionPort().hashPassword(loginPassword, loginUsername) );
-			//logger.info("\n\n receivedhash -> " + receivedhash + " \n\n ");
+			logger.info("\n\n receivedhash -> " + receivedhash + " \n\n ");
 			UsernamePasswordToken token = new UsernamePasswordToken(loginUsername, receivedhash);
 			boolean loginsuccess = false;
 			try {

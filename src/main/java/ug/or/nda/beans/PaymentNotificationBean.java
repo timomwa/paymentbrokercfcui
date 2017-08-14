@@ -27,7 +27,7 @@ public class PaymentNotificationBean implements Serializable {
 	private Logger logger = Logger.getLogger(getClass());
 	
 	
-	public final static String WS_HOST = "154.72.196.105";//"212.22.169.19";//"localhost:8080";
+	public final static String WS_HOST = "192.168.0.10";//"154.72.196.105";//"212.22.169.19";//"localhost:8080";
 	
 	private static final long serialVersionUID = 4627110854172372523L;
 
@@ -79,7 +79,7 @@ public class PaymentNotificationBean implements Serializable {
 			
 			payments =  queryService.listPayments(queryDTO);
 			
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Fetched "+payments.size()+" record"+(payments.size()>1 ? "s":"")+"");
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Fetched "+(payments!=null ? payments.size() : "NULL")+" record"+(payments!=null && payments.size()>1 ? "s":"")+"");
 			FacesContext.getCurrentInstance().addMessage("searchForm:searchbtn", msg);
 		} catch (Exception e) {
 			logger.error(e.getMessage(),e);
