@@ -75,16 +75,74 @@
 		</b:panel>
 
 		<b:panel>
-			<b:dataTable scroll-x="false" page-length="50" fixedHeader="true" responsive="true" ajax="true" style="display nowrap" style-class="display nowrap"
-				id="traxTable" value="#{paymentNotificationBean.payments}" var="payment">
-				<b:dataTableColumn value="#{payment.transactionDate}" label="Trx Date"/>
-				<b:dataTableColumn value="#{payment.invoiceNo}" label="Invoice #"/>
-				<b:dataTableColumn value="#{payment.currencyCode}"  label="Currency" />
-				<b:dataTableColumn value="#{payment.amount}" dataType="numeric-comma"  label="Amount." />
-				<b:dataTableColumn value="#{payment.paymentMode}" label="Payment Mode"/>
+			
+			<b:dataTable responsive="true" scroll-horizontally="true" widgetVar="tableWidgetVar" striped="false"
+				id="traxTable" value="#{paymentNotificationBean.payments}" var="payment"  >
+				<b:dataTableColumn data-type='date' value="" label="Trx Date" >
+					<h:outputText value="#{payment.transactionDate}">
+						<f:convertDateTime type="date" pattern="dd-MMM-yy hh:mm" />
+					</h:outputText>
+				</b:dataTableColumn>
+				<b:dataTableColumn value="#{payment.invoiceNo}" label="Inv. #" />
+				<b:dataTableColumn value="#{payment.currencyCode}" label="Currency"/>
+				<b:dataTableColumn  label="Amount." contentStyle="align: right;" >
+					<h:outputText value="#{payment.amount}" >
+						<f:convertNumber pattern="#,##0.00;(#,##0.00)"  />
+					</h:outputText>
+				</b:dataTableColumn>
+				<b:dataTableColumn value="#{payment.paymentMode}" label="Pmt Mode"/>
 				<b:dataTableColumn value="#{payment.transactionRef}" label="Trx. Ref"/>
-				<b:dataTableColumn value="#{payment.status}" label="Status" />			
+				<b:dataTableColumn value="#{payment.status}" label="Status" >
+					<b:button  rendered="#{payment.status != 'SUCCESS'}"  value="Why?" 
+					 	size="xs" look="link" icon="glyphicon glyphicon-question-sign" 
+					 	onclick="setInvoiceNo( '#{payment.invoiceNo}' )" ></b:button>
+					<b:remoteCommand  
+						actionListener="#{paymentProcessAuditBean.getMoreInfo}"
+						name="setInvoiceNo" parameters="invoiceNo"
+		              	onsuccess="$('.modalPseudoClass').modal(); tableWidgetVar.DataTable().responsive.recalc();" 
+		              	update="@(.paymentNotificationLogTable)" >
+		             </b:remoteCommand>
+		      </b:dataTableColumn>	
+				
+				<b:dataTableColumn value="" label="Action" >
+					
+					<b:button id="rbtn2_#{payment.id}" rendered="#{payment.status == 'FAILED_PERMANENTLY'}"  value="Re-try"  size="xs"  look="warning" icon="glyphicon glyphicon-repeat" update="@form,:traxTable"
+			                onclick="reTryInvoiceProcessing( '#{payment.invoiceNo}' )" >
+			        </b:button>
+			        
+			        <b:remoteCommand  id="rbtn3_#{payment.id}"
+						actionListener="#{paymentNotificationRetryBean.reTryInvoiceProcessing}"
+						name="reTryInvoiceProcessing" parameters="invoiceNoToRetry"
+		              	onsuccess="tableWidgetVar.DataTable().responsive.recalc();" 
+		              	update="@(.traxTable)" >
+		             </b:remoteCommand>
+		             
+		             
+		            
+				</b:dataTableColumn>	
+				
+					
 			</b:dataTable>
 		</b:panel>
+		
+		<b:modal id="amodal" title="Broker transaction logs" styleClass="modalPseudoClass" widgetVar="tableWidgetVar" size="modal-lg">
+		    
+		    <p>
+		    	<b:dataTable scroll-x="false" page-length="10" fixedHeader="true" responsive="true" ajax="true" style="display nowrap" style-class="display nowrap"
+				class="paymentNotificationLogTable" id="paymentNotificationLogTable" value="#{paymentProcessAuditBean.paymentNotificationRawLog}" var="rawLog">
+				
+				<b:dataTableColumn value="#{rawLog.timeStamp}" label="Trx Date" >
+				</b:dataTableColumn>
+				<b:dataTableColumn value="#{rawLog.systemID}" label="Source System" />
+				<b:dataTableColumn value="#{rawLog.sourcehost}" label="Source Host"/>
+				<b:dataTableColumn value="#{rawLog.systemMsg}" label="Narrative"/>
+				
+				</b:dataTable>
+				
+		    </p>
+		    <f:facet name="footer">
+		        <b:button value="Close" dismiss="modal" />
+		    </f:facet>
+		</b:modal>
 
 	</ui:composition>

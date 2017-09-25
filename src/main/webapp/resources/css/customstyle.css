@@ -57,3 +57,9 @@ canvas {
 	-webkit-user-select: none;
 	-ms-user-select: none;
 }
+.dangerCls{
+	background-color: #FFE06F !important;
+}
+.warningCls{
+	background-color: #FF8061 !important;
+}

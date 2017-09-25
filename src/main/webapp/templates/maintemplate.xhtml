@@ -37,8 +37,11 @@
 				</b:panel>
 				<script type="text/javascript">
 					var menu = $('.dropdown-toggle');
-					if(menu)
-						menu.dropdown();
+					if(menu){
+						if(menu.dropdown){
+							menu.dropdown();
+						}
+					}
 				</script>
 			</b:row>
 
