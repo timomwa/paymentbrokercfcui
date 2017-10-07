@@ -58,8 +58,14 @@ canvas {
 	-ms-user-select: none;
 }
 .dangerCls{
-	background-color: #FFE06F !important;
+	background-color: #fcb29b!important;
+	color: #f3f3f3!important; 
 }
 .warningCls{
-	background-color: #FF8061 !important;
+	background-color: #f2ff65!important;
+}
+
+.okCls{
+	background-color: #aeff9c!important;
+	
 }

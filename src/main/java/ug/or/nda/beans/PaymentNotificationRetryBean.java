@@ -8,12 +8,14 @@ import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.xml.namespace.QName;
 
 import org.apache.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 
+import ug.or.nda.constant.AppPropertyHolder;
 import ug.or.nda.dto.PaymentNotificationResponse;
 import ug.or.nda.dto.QueryDTO;
 import ug.or.nda.dto.RequestHeader;
@@ -31,6 +33,9 @@ public class PaymentNotificationRetryBean implements Serializable {
 	private Logger logger = Logger.getLogger(getClass());
 	private PaymentNotificationRetryService service1 = null;
 	private PaymentRetryService retryService = null;
+	
+	@Inject
+	private ConfigsBean configsEJB;
 
 	/**
 	 * 
@@ -86,7 +91,7 @@ public class PaymentNotificationRetryBean implements Serializable {
 	private PaymentRetryService getPaymentRetryServicePort() {
 		if(service1==null){
 			try {
-				URL url = new URL("http://"+PaymentNotificationBean.WS_HOST+"/broker/payment/retry/v1.0?wsdl");
+				URL url = new URL("http://"+configsEJB.getProperty(AppPropertyHolder.WS_HOST_KEY)+"/broker/payment/retry/v1.0?wsdl");
 				QName qname = new QName("http://services.nda.or.ug", "PaymentNotificationRetryService");
 				service1 = new PaymentNotificationRetryService(url,qname);
 			} catch (MalformedURLException e) {

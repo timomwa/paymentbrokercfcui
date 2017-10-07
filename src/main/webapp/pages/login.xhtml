@@ -6,7 +6,7 @@
 	xmlns:shiro="http://shiro.apache.org/tags">
 
 	<h:form id="loginForm"
-		style="margin: auto; width: 50%; border: 0px solid green; padding: 5px;">
+		style="margin: auto; width: 50%; border: 0px solid green; padding: 5px;" onclick="">
 
 
 		<b:row>
@@ -23,7 +23,7 @@
 			</b:column>
 			<b:column span="9">
 				<b:inputText placeholder="Username" id="username"
-					value="#{loginBean.loginUsername}" ajax="true" autocomplete="false"
+					value="#{loginBean.loginUsername}" ajax="true" autocomplete="off" typeaheadHint ="false"
 					update="@(.message)">
 					<f:facet name="prepend">
 						<b:icon name="user" />
@@ -37,7 +37,7 @@
 			</b:column>
 			<b:column span="9">
 				<b:inputSecret placeholder="Password" id="password"
-					value="#{loginBean.loginPassword}" ajax="true" autocomplete="false"
+					value="#{loginBean.loginPassword}" ajax="true" autocomplete="off"  typeaheadHint ="false"
 					update="@(.message)">
 					<f:facet name="prepend">
 						<b:iconAwesome name="key" />
@@ -51,7 +51,7 @@
 			<b:column span="4" offset="7">
 				<b:commandButton id="login" value="login"
 					onclick="ajax:loginBean.login()" update="@form" look="primary"
-					style="width:100%" />
+					style="width:100%" action="#{pageBean.getPage()}"/>
 			</b:column>
 			<ui:remove>
 				<b:column span="6">

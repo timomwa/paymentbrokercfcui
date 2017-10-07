@@ -4,6 +4,44 @@
 	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:shiro="http://shiro.apache.org/tags">
+	
+	<b:panel ajax="false">
+	
+	
+			<b:modal id="pleaseWaitModal" 
+			            title="Loading"
+			            backdrop="false"
+			            styleClass="pleaseWaitModalClass" >
+			    
+						    <h1><img src="javax.faces.resource/images/waitcursor.gif.jsf?ln=bsf" /></h1>
+			</b:modal>	
+	
+			<b:modal
+			            title="Broker transaction logs" 
+			            styleClass="responsiveModalPseudoClass" 
+			            widgetVar="tableWidgetVar" 
+			            size="modal-lg">
+			    
+						    <p>
+						    	<b:dataTable 
+						    	scroll-x="false" page-length="10" fixedHeader="true" responsive="true" ajax="true" style="display nowrap" style-class="display nowrap"
+					class="paymentNotificationLogTable" id="paymentNotificationLogTable" value="#{paymentProcessAuditBean.paymentNotificationRawLog}" var="rawLog">
+								
+								<b:dataTableColumn value="#{rawLog.timeStamp}" label="Trx Date" >
+								</b:dataTableColumn>
+								<b:dataTableColumn value="#{rawLog.systemID}" label="Source System" />
+								<b:dataTableColumn value="#{rawLog.sourcehost}" label="Source Host"/>
+								<b:dataTableColumn value="#{rawLog.systemMsg}" label="Narrative"/>
+								
+								</b:dataTable>
+								
+						    </p>
+						    <f:facet name="footer">
+						        <b:button value="Close" dismiss="modal" />
+						    </f:facet>
+			</b:modal>	
+	
+		</b:panel>
 		<b:panel class="content" id="formdd" style="margin: auto; width: 100%; border: 0px solid green; padding: 5px;">
 			<h1>Broker Payments</h1>
 			<h:form id="searchForm">
@@ -61,7 +99,7 @@
 				<b:row>
 					<b:column span="3" offset="2">
 						<b:commandButton id="searchbtn" value="search" ajax="true"
-							update="@form,:traxTable" onclick="ajax:paymentNotificationBean.query()"
+							update="@this, @form,:traxTable" onclick="ajax:paymentNotificationBean.query()"
 							look="primary" style="width:100%" />
 					</b:column>
 					<b:column span="2" >
@@ -72,12 +110,16 @@
 				</b:row>
 
 			</h:form>
+			
+			
 		</b:panel>
 
 		<b:panel>
 			
-			<b:dataTable responsive="true" scroll-horizontally="true" widgetVar="tableWidgetVar" striped="false"
-				id="traxTable" value="#{paymentNotificationBean.payments}" var="payment"  >
+			<b:dataTable  paginated="true"
+			responsive="true" scroll-horizontally="true" widgetVar="tableWidgetVar" striped="false"
+				id="traxTable" value="#{paymentNotificationBean.payments}" var="payment"   
+				row-style-class="#{payment.status =='SUCCESS' ? 'okCls' : (payment.status =='FAILED_PERMANENTLY'  ? 'dangerCls' : 'warningCls') } ">
 				<b:dataTableColumn data-type='date' value="" label="Trx Date" >
 					<h:outputText value="#{payment.transactionDate}">
 						<f:convertDateTime type="date" pattern="dd-MMM-yy hh:mm" />
@@ -92,16 +134,17 @@
 				</b:dataTableColumn>
 				<b:dataTableColumn value="#{payment.paymentMode}" label="Pmt Mode"/>
 				<b:dataTableColumn value="#{payment.transactionRef}" label="Trx. Ref"/>
-				<b:dataTableColumn value="#{payment.status}" label="Status" >
-					<b:button  rendered="#{payment.status != 'SUCCESS'}"  value="Why?" 
+				<b:dataTableColumn value="#{payment.status}" label="Status">
+					<b:button value="More..." 
 					 	size="xs" look="link" icon="glyphicon glyphicon-question-sign" 
-					 	onclick="setInvoiceNo( '#{payment.invoiceNo}' )" ></b:button>
+					 	onclick="showModal(); setInvoiceNo( '#{payment.invoiceNo}' )" ></b:button>
 					<b:remoteCommand  
 						actionListener="#{paymentProcessAuditBean.getMoreInfo}"
 						name="setInvoiceNo" parameters="invoiceNo"
-		              	onsuccess="$('.modalPseudoClass').modal(); tableWidgetVar.DataTable().responsive.recalc();" 
+		              	onsuccess="hideModal(); $('.responsiveModalPseudoClass').modal(); tableWidgetVar.DataTable().responsive.recalc();" 
 		              	update="@(.paymentNotificationLogTable)" >
 		             </b:remoteCommand>
+					
 		      </b:dataTableColumn>	
 				
 				<b:dataTableColumn value="" label="Action" >
@@ -116,33 +159,28 @@
 		              	onsuccess="tableWidgetVar.DataTable().responsive.recalc();" 
 		              	update="@(.traxTable)" >
 		             </b:remoteCommand>
-		             
-		             
-		            
-				</b:dataTableColumn>	
-				
-					
+		           
+				</b:dataTableColumn>
 			</b:dataTable>
 		</b:panel>
 		
-		<b:modal id="amodal" title="Broker transaction logs" styleClass="modalPseudoClass" widgetVar="tableWidgetVar" size="modal-lg">
-		    
-		    <p>
-		    	<b:dataTable scroll-x="false" page-length="10" fixedHeader="true" responsive="true" ajax="true" style="display nowrap" style-class="display nowrap"
-				class="paymentNotificationLogTable" id="paymentNotificationLogTable" value="#{paymentProcessAuditBean.paymentNotificationRawLog}" var="rawLog">
-				
-				<b:dataTableColumn value="#{rawLog.timeStamp}" label="Trx Date" >
-				</b:dataTableColumn>
-				<b:dataTableColumn value="#{rawLog.systemID}" label="Source System" />
-				<b:dataTableColumn value="#{rawLog.sourcehost}" label="Source Host"/>
-				<b:dataTableColumn value="#{rawLog.systemMsg}" label="Narrative"/>
-				
-				</b:dataTable>
-				
-		    </p>
-		    <f:facet name="footer">
-		        <b:button value="Close" dismiss="modal" />
-		    </f:facet>
-		</b:modal>
+		<script type="text/javascript">
+			function showModal(){
+				//var pleaseWaitModal = $('#pleaseWaitModal');
+				//console.log(pleaseWaitModal);
+				//pleaseWaitModal.modal();
+			}
+
+			function hideModal(){
+				//var pleaseWaitModal = $('#pleaseWaitModal');
+				//console.log(pleaseWaitModal);
+				//pleaseWaitModal.hide(); 
+				//pleaseWaitModal.removeClass("modal fade in"); 
+			}
+			
+		</script>
+		
 
 	</ui:composition>
+	
+	

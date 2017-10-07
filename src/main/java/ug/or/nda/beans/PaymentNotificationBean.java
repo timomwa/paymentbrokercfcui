@@ -11,13 +11,17 @@ import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.xml.namespace.QName;
 
 import org.apache.log4j.Logger;
 
+import ug.or.nda.constant.AppPropertyHolder;
 import ug.or.nda.dto.PaymentNotificationDTO;
 import ug.or.nda.dto.PaymentNotificationRawLogDTO;
 import ug.or.nda.dto.QueryDTO;
+import ug.or.nda.services.configs.Configs;
+import ug.or.nda.services.configs.ConfigurationServiceService;
 import ug.or.nda.ws.client.payment.PaymentQueryService;
 import ug.or.nda.ws.client.payment.PaymentQueryServiceService;
 
@@ -27,8 +31,9 @@ public class PaymentNotificationBean implements Serializable {
 	
 	private Logger logger = Logger.getLogger(getClass());
 	
+	@Inject
+	private ConfigsBean configsEJB;
 	
-	public final static String WS_HOST = "192.168.0.10";//"localhost:8080";//
 	
 	private static final long serialVersionUID = 4627110854172372523L;
 
@@ -38,16 +43,15 @@ public class PaymentNotificationBean implements Serializable {
 	private QueryDTO queryDTO;
 	private PaymentQueryServiceService service1 = null;
 	private PaymentQueryService queryService = null;
+	private ConfigurationServiceService configsService = null;
+	private Configs configsPort = null;
 	
 	@Init
 	@PostConstruct
 	public void init() {
 		queryDTO = new QueryDTO();
-		queryDTO.setLimit(100);
-		
-		QueryDTO queryDTO = new QueryDTO();
 		queryDTO.setStart(0);
-		queryDTO.setLimit(100);
+		queryDTO.setLimit(10);//Limit to 10
 		payments = getQueryService().listPayments(queryDTO);
 	}
 	
@@ -64,11 +68,28 @@ public class PaymentNotificationBean implements Serializable {
 		logger.info("\n\n\t\t ---> paymentNotificationRawLog : "+paymentNotificationRawLog+"\n\n");
 	}
 	
+	private Configs getConfigsService(){
+		if(configsService==null){
+			try{
+				URL url = new URL("http://"+configsEJB.getProperty(AppPropertyHolder.WS_HOST_KEY)+"/broker/config/v2.0?wsdl");
+		        QName qname = new QName("http://services.nda.or.ug", "ConfigurationServiceService");
+		        configsService = new ConfigurationServiceService(url,qname);
+			} catch (MalformedURLException e) {
+				logger.error(e.getMessage(), e);
+			}
+		}
+		
+		if(configsPort==null){
+			configsPort = configsService.getConfigsPort();
+		}
+		
+		return configsPort;
+	}
 	
 	private PaymentQueryService getQueryService() {
 		if(service1==null){
 			try {
-				URL url = new URL("http://"+PaymentNotificationBean.WS_HOST+"/broker/payment/query/v1.0?wsdl");
+				URL url = new URL("http://"+configsEJB.getProperty(AppPropertyHolder.WS_HOST_KEY)+"/broker/payment/query/v1.0?wsdl");
 				QName qname = new QName("http://services.nda.or.ug", "PaymentQueryServiceService");
 				service1 = new PaymentQueryServiceService(url,qname);
 			} catch (MalformedURLException e) {
@@ -90,7 +111,7 @@ public class PaymentNotificationBean implements Serializable {
 		logger.info("AT query ..."+queryDTO);
 		try {
 			queryService = getQueryService();
-			queryDTO.setLimit(1000);
+			queryDTO.setLimit(10000);
 			
 			payments =  queryService.listPayments(queryDTO);
 			

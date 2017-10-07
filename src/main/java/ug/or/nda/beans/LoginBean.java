@@ -9,6 +9,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.validation.constraints.Size;
 import javax.xml.namespace.QName;
 
@@ -21,6 +22,7 @@ import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 
+import ug.or.nda.constant.AppPropertyHolder;
 import ug.or.nda.ws.client.encryption.EncryptionService;
 import ug.or.nda.ws.client.encryption.EncryptionServiceService;
 import ug.or.nda.ws.client.user.UserDTO;
@@ -50,6 +52,9 @@ public class LoginBean implements Serializable {
     
     private EncryptionServiceService encryptionService = null;
     private EncryptionService encryptionport = null;
+    
+    @Inject
+	private ConfigsBean configsEJB;
 
 	public void login() {
 
@@ -118,7 +123,7 @@ public class LoginBean implements Serializable {
 	private EncryptionService getEncryptionPort() {
 		if(encryptionService==null){
 			try {
-				URL url = new URL("http://"+PaymentNotificationBean.WS_HOST+"/broker/encryption/v1.0?wsdl");
+				URL url = new URL("http://"+configsEJB.getProperty(AppPropertyHolder.WS_HOST_KEY)+"/broker/encryption/v1.0?wsdl");
 				QName qname = new QName("http://services.nda.or.ug", "EncryptionServiceService");
 				encryptionService = new EncryptionServiceService(url,qname);
 			} catch (MalformedURLException e) {
@@ -134,7 +139,7 @@ public class LoginBean implements Serializable {
 	private UserService getUserService() {
 		if(service1==null){
 			try {
-				URL url = new URL("http://"+PaymentNotificationBean.WS_HOST+"/broker/user/v1.0?wsdl");
+				URL url = new URL("http://"+configsEJB.getProperty(AppPropertyHolder.WS_HOST_KEY)+"/broker/user/v1.0?wsdl");
 				QName qname = new QName("http://services.nda.or.ug", "UserServiceService");
 				service1 = new UserServiceService(url,qname);
 			} catch (MalformedURLException e) {

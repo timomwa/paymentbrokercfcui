@@ -8,10 +8,12 @@ import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.xml.namespace.QName;
 
 import org.apache.log4j.Logger;
 
+import ug.or.nda.constant.AppPropertyHolder;
 import ug.or.nda.dto.PaymentNotificationRawLogDTO;
 import ug.or.nda.dto.QueryDTO;
 import ug.or.nda.ws.client.payment.PaymentQueryService;
@@ -28,6 +30,8 @@ public class PaymentProcessAuditBean implements Serializable {
 	private List<PaymentNotificationRawLogDTO> paymentNotificationRawLog;
 	private String invoiceNo;
 	
+	@Inject
+	private ConfigsBean configsEJB;
 	
 	
 	public String getInvoiceNo() {
@@ -61,7 +65,7 @@ public class PaymentProcessAuditBean implements Serializable {
 	private PaymentQueryService getQueryService() {
 		if(service1==null){
 			try {
-				URL url = new URL("http://"+PaymentNotificationBean.WS_HOST+"/broker/payment/query/v1.0?wsdl");
+				URL url = new URL("http://"+configsEJB.getProperty(AppPropertyHolder.WS_HOST_KEY)+"/broker/payment/query/v1.0?wsdl");
 				QName qname = new QName("http://services.nda.or.ug", "PaymentQueryServiceService");
 				service1 = new PaymentQueryServiceService(url,qname);
 			} catch (MalformedURLException e) {
